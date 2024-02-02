@@ -52,16 +52,15 @@ class ReceptesController {
     }
 
     async updateRecepta(id, nom, foto, descripcio) {
-        const response = await fetch(`${this.apiUrl}/${id}`, {
-            method: 'PUT',
+        const response = await fetch(`${this.apiUrl}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'xc-token': this.token
             },
             body: JSON.stringify({
-                nom,
-                foto,
-                descripcio
+                id,
+                nom
             })
         });
 

@@ -2,21 +2,27 @@
 import ReceptesController from '../../../classes/ReceptesController';
 import Layout from "../../../layouts/Layout.astro"
 import Back from "../../../components/Back.astro";
+import { Debug } from 'astro:components';
+
 
 
 const { Id } = Astro.props;
-
+// let nomb;
 const receptesController = new ReceptesController();
+// console.log(receptesController.getReceptaById(Id))
 
-if(Astro.request.method === 'PUT'){
+
+if(Astro.request.method === 'POST'){
     const data = await Astro.request.formData();
     const nom = data.get("nom");
-    const img = data.get("img");
-    const descripcio = data.get("descripcio");
-    const id = data.get("id")
-
-
+    // const img = data.get("foto");
+    // const descripcio = data.get("descripcio");
+    const id = Id
+    // console.log(id + " " + nom + " " + img + " " + descripcio);
+    await receptesController.updateRecepta(id, nom);
+    return Astro.redirect("/");
 }
+
 
 ---
 
@@ -75,7 +81,8 @@ if(Astro.request.method === 'PUT'){
                 />
             </div>
         </div>
-        
-        <button class="text-white bg-[#55cf5d] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block   mb-9  p-3 right-0">enviar</button>
+        <!-- <input name="id" type="hidden" value={Id} > -->
+        <button class="text-white bg-[#55cf5d] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block   mb-9  p-3 right-0">Enviar</button>
     </form>
+    <Debug answer={Id} />
 </Layout>
