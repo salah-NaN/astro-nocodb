@@ -1,0 +1,23 @@
+---
+const { nom, img, descripcio, Id } = Astro.props.dades;
+//console.log(descripcio)
+---
+
+
+<div class=" grid content-between border mb-8 w-1/2 p-6 bg-[#EEE5D3]  hover:bg-[#dbd3c2] duration-300 hover:transition-all w-full ">
+    <h1 class="text-xl text-[#BF4342] font-bold text-2xl text-center mb-8">{nom}</h1>
+   
+    <img class="rounded-xl w-2/3 m-auto" src={img} alt="">
+    <hr class="my-4" />
+    <div class="w-full ">
+        {descripcio?.replace(/\n/g, '*n*').split('*n*').map(e => <p class="text-[#5b4540] text-lg font-thin">{e}</p>)}
+    </div>
+
+    <div class="flex mb-0 flex-row justify-between mt-2">
+
+        <a class="text-red-400 pb-0" href={"/receptes/eliminar/"+Id}>Eliminar</a>
+        <a class="text-green-400 pb-0" href={"/receptes/actualizar/"+Id}>Actualizar</a>
+    </div>
+
+
+</div>

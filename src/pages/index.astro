@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro"
+import ReceptesController from '../classes/ReceptesController';
+import Recepta from "../components/Recepta.astro";
+// Exemple d'ús:
+
+const receptesController = new ReceptesController();
+
+const receptes = await receptesController.getAllReceptes();
+/* receptes té el format:
+{
+    list: [
+      {
+        Id: 1,
+        nom: 'ous amb bacon',
+        CreatedAt: '2024-02-01 09:44:44+00:00',
+        UpdatedAt: '2024-02-01 09:46:32+00:00',
+        foto: 'https://baconmockup.com/400/300/',
+        descripcio: 'Ingredients:\n' +
+          '* Dos ous\n' +
+          '* Unes llesques de bacon\n' +
+          'Preparació:\n' +
+          '* Fregir el bacon amb oli d\'oliva a foc mig fins que quedi torradet.\n' +
+          '* Fregir els ous amb oli abundant.\n' +
+          ' \n' +
+          ' '
+      },
+	  {
+		...
+	  }
+         ],
+    pageInfo: {
+      totalRows: 2,
+      page: 1,
+      pageSize: 25,
+      isFirstPage: true,
+      isLastPage: true
+    }
+  }
+*/
+
+
+---
+
+<Layout title="Cuina amb mi!">
+
+	<a  class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit  mb-9 mx-auto p-3" href="/receptes/nova">Nova recepta</a>
+
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+		{receptes.list.map(e => <Recepta dades={e} />)}
+  </div>
+
+	
+
+</Layout>

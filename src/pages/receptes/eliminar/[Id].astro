@@ -1,0 +1,43 @@
+---
+import Layout from "../../../layouts/Layout.astro"
+import ReceptesController from '../../../classes/ReceptesController';
+// Exemple d'ús:
+
+const {Id} = Astro.params
+
+const receptesController = new ReceptesController();
+
+const recepta = await receptesController.getReceptaById(Id);
+console.log (recepta)
+
+
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const id = data.get("id");
+
+    //console.log("eliminant "+id)
+   
+    await receptesController.deleteRecepta(id);
+
+    return Astro.redirect("/");
+}
+
+---
+
+<Layout title="elimina recepta">
+
+    <h1>Segur q vols eliminar{recepta.nom}? </h1>
+
+    <form method="post">
+        <input
+        value={Id}
+        name="id"
+        type="hidden"
+    />
+        <button type="submit">Si</button>
+        <a href="/">
+            <button type="button">No</button>
+        </a>
+    </form>
+        
+</Layout>
