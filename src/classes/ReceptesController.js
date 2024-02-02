@@ -52,6 +52,8 @@ class ReceptesController {
     }
 
     async updateRecepta(id, nom, foto, descripcio) {
+        const recepta = this.getReceptaById(id);
+
         const response = await fetch(`${this.apiUrl}`, {
             method: 'PATCH',
             headers: {
@@ -60,7 +62,9 @@ class ReceptesController {
             },
             body: JSON.stringify({
                 id,
-                nom
+                nom: (nom !== undefined ? nom : recepta.nom),
+                img: (foto !== undefined ? foto : recepta.img),
+                descripcio: (descripcio !== undefined ? descripcio : recepta.descripcio),
             })
         });
 
