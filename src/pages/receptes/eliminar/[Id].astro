@@ -4,6 +4,8 @@ import ReceptesController from '../../../classes/ReceptesController';
 // Exemple d'ús:
 
 const {Id} = Astro.params
+const lang = Astro.cookies.get('idiom');
+
 
 const receptesController = new ReceptesController();
 
@@ -26,7 +28,7 @@ if (Astro.request.method === "POST") {
 
 <Layout title="elimina recepta">
 
-    <h1>Segur q vols eliminar{recepta.nom}? </h1>
+    <h1>{lang.value === 'ca' ? 'Segur que vols eliminar ' : 'Seguro que quieres eliminar '}{recepta.nom}? </h1>
 
     <form method="post">
         <input
@@ -34,7 +36,7 @@ if (Astro.request.method === "POST") {
         name="id"
         type="hidden"
     />
-        <button type="submit">Si</button>
+        <button type="submit">Sí</button>
         <a href="/">
             <button type="button">No</button>
         </a>

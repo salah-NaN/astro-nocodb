@@ -1,24 +1,33 @@
 ---
 import Layout from "../../../layouts/Layout.astro"
 import ReceptesController from '../../../classes/ReceptesController';
+import Back from "../../../components/Back.astro";
 import { Debug } from 'astro:components';
 
 // Exemple d'ús:
 
 const {Id} = Astro.params
+const lang = Astro.cookies.get('idiom')
+
 
 const receptesController = new ReceptesController();
 
 const recepta = await receptesController.getReceptaById(Id);
+const {nombre, imagen, descripcion} = recepta;
 
 
-let n = "jota";
+
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
     const id = data.get("id");
-    const nom = data.get("nom");
-    const img = data.get("foto");
-    const descripcio = data.get("descripcio");
+    const nom = data.get("nom") === "" ? nombre : data.get("nom");
+    const img = data.get("foto") === "" ? imagen : data.get("foto");
+    const descripcio = data.get("descripcio") === "" ? descripcion : data.get("descripcio");
+    console.log(img)
+    // const nom = data.get("nom");
+    // const img = data.get("foto");
+    // const descripcio = data.get("descripcio");
+
     await receptesController.updateRecepta(id, nom, img, descripcio);
 
     return Astro.redirect("/");
@@ -26,10 +35,10 @@ if (Astro.request.method === "POST") {
 
 ---
 
-<Layout>
+<Layout title={lang.value === 'ca' ? 'Actualitzar' : 'Actualizar'}>
 
     
-
+    <Back/>
 
     <form class="relative" method="post">
         <div class="md:flex md:items-center mb-6">
@@ -38,7 +47,7 @@ if (Astro.request.method === "POST") {
                     class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4"
                     for="inline-full-name"
                 >
-                    Nom
+                {lang.value === 'ca' ? 'Nom' : 'Nombre'}
                 </label>
             </div>
             <div class="md:w-2/3">
@@ -46,7 +55,7 @@ if (Astro.request.method === "POST") {
                     class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700"
                     name="nom"
                     type="text"
-                    value={recepta.nom}
+                    
                 />
             </div>
         </div>
@@ -64,7 +73,7 @@ if (Astro.request.method === "POST") {
                     class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700"
                     name="foto"
                     type="text"
-                    value={recepta.img}
+
                 />
             </div>
         </div>
@@ -74,14 +83,14 @@ if (Astro.request.method === "POST") {
                     class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4"
                     for="inline-full-name"
                 >
-                    Descripcio
+                {lang.value === 'ca' ? 'Descripció' : 'Descripción'}
                 </label>
             </div>
             <div class="md:w-2/3">
                 <textarea
                     class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700"
                     name="descripcio"
-                >{recepta.descripcio}</textarea>
+                ></textarea>
             </div>
         </div>
         <input
@@ -89,7 +98,7 @@ if (Astro.request.method === "POST") {
         name="id"
         type="hidden"
     />
-        <button type="submit" class="text-white bg-[#55cf5d] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block   mb-9  p-3 right-0">enviar</button>
+        <button type="submit" class="text-white bg-[#55cf5d] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block   mb-9  p-3 right-0">Enviar</button>
     </form>
     <!-- <Debug answer={n} /> -->
 

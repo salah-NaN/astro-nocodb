@@ -2,11 +2,23 @@
 import Layout from "../layouts/Layout.astro"
 import ReceptesController from '../classes/ReceptesController';
 import Recepta from "../components/Recepta.astro";
+
+const lang = Astro.cookies.get('idiom')
 // Exemple d'ús:
 
 const receptesController = new ReceptesController();
 
 const receptes = await receptesController.getAllReceptes();
+
+// simple validació d'usuari loguejat
+let usuari;
+if (Astro.cookies.has("usuari")) {
+  const cookie = Astro.cookies.get("usuari")
+  usuari = cookie.value
+} else {
+  return Astro.redirect('/login')
+}
+
 /* receptes té el format:
 {
     list: [
@@ -42,13 +54,15 @@ const receptes = await receptesController.getAllReceptes();
 
 ---
 
-<Layout title="Cuina amb mi!">
+<Layout title={lang.value === 'ca' ? 'Cuina amb mi!' : 'Cocina conmigo!'}>
 
-	<a  class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit  mb-9 mx-auto p-3" href="/receptes/nova">Nova recepta</a>
+	<a  class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit  mb-9 mx-auto p-3" href="/receptes/nova">{lang.value === 'ca' ? 'Nova recepta' : 'Nueva receta'}</a>
 
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-		{receptes.list.map(e => <Recepta dades={e} />)}
+		{receptes.list
+    .filter(recepta => recepta.usuari === usuari)
+    .map(e => <Recepta dades={e} />)}
   </div>
 
 	

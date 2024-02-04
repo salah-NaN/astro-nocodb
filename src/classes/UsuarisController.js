@@ -1,12 +1,33 @@
-const APIURL = 'https://app.nocodb.com/api/v2/tables/mpskrqqu37cqbx3/records';
+const APIURL = 'https://app.nocodb.com/api/v2/tables/mgedrz7ut206tdu/records';
 const TOKEN = '1304jR017Byec9c3EFcOO4GrguCVkktot1cKE27k';
-class ReceptesController {
+
+class UsuarisController {
     constructor() {
         this.apiUrl = APIURL;
         this.token = TOKEN;
     }
 
-    async getAllReceptes() {
+    async validaUsuari(nom, password){
+        const response = await fetch(`${this.apiUrl}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'xc-token': this.token
+            }
+        });
+        const response_data =  await response.json();
+        
+        const users = response_data.list;
+        console.log(users)
+        console.log(users);
+        const validUser = users.filter(e => e.nom===nom && e.password===password)
+
+        return !!validUser.length;
+    }
+
+
+
+    async getAllUsuaris() {
         const response = await fetch(`${this.apiUrl}`, {
             method: 'GET',
             headers: {
@@ -15,11 +36,10 @@ class ReceptesController {
             }
         });
 
-        const data = await response.json();
-        return data;
+        return  response.json();
     }
 
-    async getReceptaById(id) {
+    async getUsuariById(id) {
         const response = await fetch(`${this.apiUrl}/${id}`, {
             method: 'GET',
             headers: {
@@ -32,9 +52,31 @@ class ReceptesController {
         return data;
     }
 
-    async createRecepta(nom, foto, descripcio) {
-        const response = await fetch(`${this.apiUrl}`, {
-            method: 'POST',
+    async createUsuari(nom, email, password) {
+        const usuaris = await this.getAllUsuaris();
+        const listaUsuais = usuaris.list;
+
+        
+        // const response = await fetch(`${this.apiUrl}`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'xc-token': this.token
+        //     },
+        //     body: JSON.stringify({
+        //         nom,
+        //         email,
+        //         password,
+        //     })
+        // });
+
+        const data = await response.json();
+        return data;
+    }
+
+    async updateUsuari(id, nom, foto, descripcio) {
+        const response = await fetch(`${this.apiUrl}/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'xc-token': this.token
@@ -50,28 +92,7 @@ class ReceptesController {
         return data;
     }
 
-    async updateRecepta(id, nom, foto, descripcio) {
-        const recepta = this.getReceptaById(id);
-
-        const response = await fetch(`${this.apiUrl}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            },
-            body: JSON.stringify({
-                id,
-                nom,
-                img: foto,
-                descripcio
-            })
-        });
-
-        const data = await response.json();
-        return data;
-    }
-
-    async deleteRecepta(id) {
+    async deleteUsuari(id) {
         const response = await fetch(`${this.apiUrl}`, {
             method: 'DELETE',
             headers: {
@@ -88,30 +109,25 @@ class ReceptesController {
     }
 }
 
-export default ReceptesController;
+export default UsuarisController;
 
 /*
 // Exemple d'ús:
 const apiUrl = 'https://example.com/api';
 const token = 'el_teu_token_aqui';
-
-const receptesController = new ReceptesController(apiUrl, token);
-
+const usuarisController = new ReceptesController(apiUrl, token);
 // Obté totes les receptes
 receptesController.getAllReceptes().then(data => console.log(data));
-
 // Obté una recepta per ID
 const receptaId = 1;
 receptesController.getRecepteById(receptaId).then(data => console.log(data));
-
 // Crea una nova recepta
-const novaRecepta = {
+const novaUsuari = {
     nom: 'Paella',
     foto: 'paella.jpg',
     descripcio: 'Una deliciosa paella'
 };
-receptesController.createRecepte(novaRecepta.nom, novaRecepta.foto, novaRecepta.descripcio).then(data => console.log(data));
-
+receptesController.createRecepte(novaUsuari.nom, novaUsuari.foto, novaUsuari.descripcio).then(data => console.log(data));
 // Actualitza una recepta existent
 const receptaActualitzada = {
     id: 1,

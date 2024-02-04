@@ -1,0 +1,7 @@
+---
+const { idiom } = Astro.params;
+ Astro.cookies.set("idiom", idiom, {path: "/"})
+
+return Astro.redirect('/')
+
+---
