@@ -1,112 +1,116 @@
-const APIURL = 'https://app.nocodb.com/api/v2/tables/mgedrz7ut206tdu/records';
-const TOKEN = '1304jR017Byec9c3EFcOO4GrguCVkktot1cKE27k';
+const APIURL = "https://app.nocodb.com/api/v2/tables/mgedrz7ut206tdu/records";
+const TOKEN = "1304jR017Byec9c3EFcOO4GrguCVkktot1cKE27k";
 
 class UsuarisController {
-    constructor() {
-        this.apiUrl = APIURL;
-        this.token = TOKEN;
-    }
+  constructor() {
+    this.apiUrl = APIURL;
+    this.token = TOKEN;
+  }
 
-    async validaUsuari(nom, password){
-        const response = await fetch(`${this.apiUrl}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            }
-        });
-        const response_data =  await response.json();
-        
-        const users = response_data.list;
-        console.log(users)
-        console.log(users);
-        const validUser = users.filter(e => e.nom===nom && e.password===password)
+  async validaUsuari(nom, password) {
+    const response = await fetch(`${this.apiUrl}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "xc-token": this.token,
+      },
+    });
+    const response_data = await response.json();
 
-        return !!validUser.length;
-    }
+    const users = response_data.list;
+    console.log(users);
+    console.log(users);
+    const validUser = users.filter(
+      (e) => e.nom === nom && e.password === password
+    );
 
+    return !!validUser.length;
+  }
 
+  async getAllUsuaris() {
+    const response = await fetch(`${this.apiUrl}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "xc-token": this.token,
+      },
+    });
 
-    async getAllUsuaris() {
-        const response = await fetch(`${this.apiUrl}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            }
-        });
+    return response.json();
+  }
 
-        return  response.json();
-    }
+  async getUsuariById(id) {
+    const response = await fetch(`${this.apiUrl}/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "xc-token": this.token,
+      },
+    });
 
-    async getUsuariById(id) {
-        const response = await fetch(`${this.apiUrl}/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            }
-        });
+    const data = await response.json();
+    return data;
+  }
 
-        const data = await response.json();
-        return data;
-    }
+  // async createUsuari(nom, email, password) {
+  //   const usuaris = await this.getAllUsuaris();
+  //   const listaUsuais = usuaris.list;
 
-    async createUsuari(nom, email, password) {
-        const usuaris = await this.getAllUsuaris();
-        const listaUsuais = usuaris.list;
+  //   const exists = listaUsuais.filter(usuari => usuari.email === email);
+  //   if (exists.length === 0) {
+  //     const response = await fetch(`${this.apiUrl}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "xc-token": this.token,
+  //       },
+  //       body: JSON.stringify({
+  //         nom,
+  //         password,
+  //         email,
+  //       }),
+  //     });
 
-        
-        // const response = await fetch(`${this.apiUrl}`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'xc-token': this.token
-        //     },
-        //     body: JSON.stringify({
-        //         nom,
-        //         email,
-        //         password,
-        //     })
-        // });
+  //     const data = await response.json();
+  //     return data;
+  //   } else {
+  //       return 'error';
+  //   }
+  // }
 
-        const data = await response.json();
-        return data;
-    }
+  async updateUsuari(id, nom, foto, descripcio) {
+    const response = await fetch(`${this.apiUrl}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "xc-token": this.token,
+      },
+      body: JSON.stringify({
+        nom,
+        foto,
+        descripcio,
+      }),
+    });
 
-    async updateUsuari(id, nom, foto, descripcio) {
-        const response = await fetch(`${this.apiUrl}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            },
-            body: JSON.stringify({
-                nom,
-                foto,
-                descripcio
-            })
-        });
+    const data = await response.json();
+    return data;
+  }
 
-        const data = await response.json();
-        return data;
-    }
+  async deleteUsuari(id) {
+    const response = await fetch(`${this.apiUrl}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "xc-token": this.token,
+      },
+      body: JSON.stringify({
+        Id: id,
+      }),
+    });
 
-    async deleteUsuari(id) {
-        const response = await fetch(`${this.apiUrl}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'xc-token': this.token
-            },
-            body: JSON.stringify({
-                Id:id
-            })
-        });
-
-        const data = await response.json();
-        return data;
-    }
+    const data = await response.json();
+    return data;
+  }
 }
 
 export default UsuarisController;

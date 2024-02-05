@@ -8,7 +8,7 @@ if (Astro.request.method === "POST") {
     const password = data.get("password");
     
     const userOk = await usuarisController.validaUsuari(nom, password);
-
+    console.log(userOk)
     if (userOk) {
         Astro.cookies.set("usuari", nom);
         return Astro.redirect("/");
