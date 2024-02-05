@@ -1,4 +1,4 @@
-<!-- ---
+---
 import UsuarisController from "../classes/UsuarisController";
 import Layout from "../layouts/Layout.astro";
 
@@ -16,7 +16,7 @@ if (Astro.request.method === 'POST') {
 
     const createUserFeedback = await usuarisController.createUsuari(nom, email, password)
     if (createUserFeedback === 'error') {
-        return Astro.redirect('/signupError')
+        return Astro.redirect('/signup_error')
     } else {
         return Astro.redirect('/login')
     }
@@ -92,4 +92,4 @@ if (Astro.request.method === 'POST') {
         </button>
     
     </form>
-</Layout> -->
+</Layout>

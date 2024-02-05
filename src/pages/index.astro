@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro"
 import ReceptesController from '../classes/ReceptesController';
 import Recepta from "../components/Recepta.astro";
 
-const lang = Astro.cookies.get('idiom')
+
 // Exemple d'ús:
 
 const receptesController = new ReceptesController();
@@ -51,6 +51,7 @@ if (Astro.cookies.has("usuari")) {
   }
 */
 
+const lang = Astro.cookies.get('idiom')
 
 ---
 

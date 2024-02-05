@@ -18,10 +18,10 @@ if (Astro.request.method === "POST") {
     }
     
 }
-const lang = Astro.cookies.get('idiom');
+const lang = Astro.cookies.get('idiom')
 ---        
 
-<Layout title={lang.value === 'ca' ? 'Inicia sessió' : 'Iniciar sesión'}  >
+<Layout title={lang.value === 'ca' ? 'Iniciar sessió' : 'Iniciar sesión'}>
 
 
 

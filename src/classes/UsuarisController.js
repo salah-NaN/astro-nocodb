@@ -52,31 +52,31 @@ class UsuarisController {
     return data;
   }
 
-  // async createUsuari(nom, email, password) {
-  //   const usuaris = await this.getAllUsuaris();
-  //   const listaUsuais = usuaris.list;
+  async createUsuari(nom, email, password) {
+    const usuaris = await this.getAllUsuaris();
+    const listaUsuais = usuaris.list;
 
-  //   const exists = listaUsuais.filter(usuari => usuari.email === email);
-  //   if (exists.length === 0) {
-  //     const response = await fetch(`${this.apiUrl}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "xc-token": this.token,
-  //       },
-  //       body: JSON.stringify({
-  //         nom,
-  //         password,
-  //         email,
-  //       }),
-  //     });
+    const exists = listaUsuais.filter(usuari => usuari.email === email);
+    if (exists.length === 0) {
+      const response = await fetch(`${this.apiUrl}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "xc-token": this.token,
+        },
+        body: JSON.stringify({
+          nom,
+          password,
+          email,
+        }),
+      });
 
-  //     const data = await response.json();
-  //     return data;
-  //   } else {
-  //       return 'error';
-  //   }
-  // }
+      const data = await response.json();
+      return data;
+    } else {
+        return 'error';
+    }
+  }
 
   async updateUsuari(id, nom, foto, descripcio) {
     const response = await fetch(`${this.apiUrl}/${id}`, {
