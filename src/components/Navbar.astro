@@ -1,0 +1,44 @@
+---
+const { Id, nom, email, password } = Astro.props.usr;
+const usuari = Astro.props.usr;
+const lang = Astro.cookies.get("idiom");
+---
+
+<nav>
+  <!-- nueva receta -->
+  <a
+    class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit mb-9 mx-auto p-3"
+    href="/receptes/nova"
+    >{lang.value === "ca" ? "Nova recepta" : "Nueva receta"}</a
+  >
+
+  <!-- hay que definir la imagen ajustes.svg -->
+  <!-- <a href="/settings/index">
+    <img src="/ajustes.svg" width="25" />
+  </a> -->
+
+  <!-- <div class="flex w-1/2 justify-between">
+    
+  </div> -->
+
+
+  <!-- metemos los botones de actualizar y borrar usuario -->
+  
+
+  <!-- aqui metemos la lógica de cerrar sesión -->
+
+  <p class="bg-black/55 text-white p-2 rounded-lg text-bold text-xl ml-12">
+    {
+      usuari ? (
+        <a href="/logout" class="no-underline">
+          hay que definir la salida.svg
+          <img src="/salida.svg text-white" width="25" />
+        </a>
+      ) : (
+        <a href="/login" class="no-underline w-4">
+          <img src="/entrada.svg text-white" width="25" />
+        </a>
+      )
+    }
+  </p>
+</nav>

@@ -32,7 +32,7 @@ class ReceptesController {
         return data;
     }
 
-    async createRecepta(nom, foto, descripcio) {
+    async createRecepta(nom, foto, descripcio, usuari) {
         const response = await fetch(`${this.apiUrl}`, {
             method: 'POST',
             headers: {
@@ -42,7 +42,8 @@ class ReceptesController {
             body: JSON.stringify({
                 nom,
                 foto,
-                descripcio
+                descripcio,
+                usuari
             })
         });
 

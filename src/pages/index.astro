@@ -1,22 +1,44 @@
 ---
-import Layout from "../layouts/Layout.astro"
-import ReceptesController from '../classes/ReceptesController';
+import Layout from "../layouts/Layout.astro";
+import ReceptesController from "../classes/ReceptesController";
 import Recepta from "../components/Recepta.astro";
-
+import UsuarisController from "../classes/UsuarisController";
+import Navbar from "../components/Navbar.astro";
 
 // Exemple d'ús:
 
 const receptesController = new ReceptesController();
+const usuarisController = new UsuarisController();
 
 const receptes = await receptesController.getAllReceptes();
+//vamos a pescar el objeto user en el dashboard del usuario para poder hacer el CRUD
+//pero hay un matiz importante y es que voy a rescatar el objeto usuario a partir del
+//par nombre de usuario y contraseña suponiendo que este par es irrepetible, además
+//de el nombre de usuario a solas
 
 // simple validació d'usuari loguejat
 let usuari;
+//duda de si los objetos usuario de cada index se pueden usar como variables let
+//ya que si no se usa así puede marcar error aunque en la práctica puede que funcione
+let objUsuari;
 if (Astro.cookies.has("usuari")) {
-  const cookie = Astro.cookies.get("usuari")
-  usuari = cookie.value
+  const cookie = Astro.cookies.get("usuari");
+  usuari = cookie.value;
+
+  // getteamos todos los users para comparar el que tenga nombre igual al de la cookie,
+  //se podría hacer mejor usando la cookie de email pero no se sabe hasta que punto es
+  //bueno tener la cookie del email en el navegador
+
+  //una posible solucion es directamente extraer el Id del usuario al hacer el login y
+  //guardándolo en una cookie, y así operar fácil
+
+  //no podemos pescar el usuario por id porque no tenemos fuente de id, solo tenemos
+  //el input del login 'nom' 'password'
+  // const allUsuaris = await usuarisController.getAllUsuaris();
+  // objUsuari = allUsuaris.filter((user) => user.nom === usuari)[0];
+
 } else {
-  return Astro.redirect('/login')
+  return Astro.redirect("/login");
 }
 
 /* receptes té el format:
@@ -51,21 +73,17 @@ if (Astro.cookies.has("usuari")) {
   }
 */
 
-const lang = Astro.cookies.get('idiom')
-
+const lang = Astro.cookies.get("idiom");
 ---
 
-<Layout title={lang.value === 'ca' ? 'Cuina amb mi!' : 'Cocina conmigo!'}>
+<Layout title={lang.value === "ca" ? "Cuina amb mi!" : "Cocina conmigo!"}>
+  <!-- <Navbar usr={objUsuari} /> -->
 
-	<a  class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit  mb-9 mx-auto p-3" href="/receptes/nova">{lang.value === 'ca' ? 'Nova recepta' : 'Nueva receta'}</a>
-
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-		{receptes.list
-    .filter(recepta => recepta.usuari === usuari)
-    .map(e => <Recepta dades={e} />)}
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {
+      receptes.list
+        .filter((recepta) => recepta.usuari === usuari)
+        .map((e) => <Recepta dades={e} />)
+    }
   </div>
-
-	
-
 </Layout>

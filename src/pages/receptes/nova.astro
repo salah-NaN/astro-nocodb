@@ -7,6 +7,7 @@ import ReceptesController from '../../classes/ReceptesController';
 
 
 const receptesController = new ReceptesController();
+const usuari = Astro.cookies.get('usuari')
 
 
 if (Astro.request.method === "POST") {
@@ -15,7 +16,7 @@ if (Astro.request.method === "POST") {
     const foto = data.get("foto");
     const descripcio = data.get("descripcio");
    
-    await receptesController.createRecepta(nom, foto, descripcio);
+    await receptesController.createRecepta(nom, foto, descripcio, usuari.value);
 
     return Astro.redirect("/");
 }

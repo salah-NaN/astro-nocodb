@@ -8,7 +8,7 @@ if (Astro.request.method === "POST") {
     const password = data.get("password");
     
     const userOk = await usuarisController.validaUsuari(nom, password);
-    console.log(userOk)
+
     if (userOk) {
         Astro.cookies.set("usuari", nom);
         return Astro.redirect("/");
@@ -21,9 +21,7 @@ if (Astro.request.method === "POST") {
 const lang = Astro.cookies.get('idiom')
 ---        
 
-<Layout title={lang.value === 'ca' ? 'Iniciar sessió' : 'Iniciar sesión'}>
-
-
+<Layout title={lang?.value === 'ca' ? 'Iniciar sessió' : 'Iniciar sesión'}>
 
     <form method="post" class="w-1/2 m-auto">
         <div class="md:flex md:items-start mb-6">
@@ -32,7 +30,7 @@ const lang = Astro.cookies.get('idiom')
                     class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4"
                     for="inline-full-name"
                 >
-                {lang.value === 'ca' ? 'Nom' : 'Nombre'}
+                {lang?.value === 'ca' ? 'Nom' : 'Nombre'}
                 </label>
             </div>
             <div class="md:w-2/3">
@@ -53,7 +51,7 @@ const lang = Astro.cookies.get('idiom')
                     class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4"
                     for="inline-full-name"
                 >
-                    {lang.value === 'ca' ? 'Contrasenya' : 'Contraseña'}
+                    {lang?.value === 'ca' ? 'Contrasenya' : 'Contraseña'}
                 </label>
             </div>
             <div class="md:w-2/3">
@@ -64,11 +62,11 @@ const lang = Astro.cookies.get('idiom')
                 />
             </div>
         </div>
-        <p>
-            <a href="/signup">{lang.value === 'ca' ? "No estàs registrat? Registra't" : '¿No estás registrado? Regístrate'}</a>
+        <p class="text-center text-sm">
+            <a href="/signup">{lang?.value === 'ca' ? "No estàs registrat? Registra't" : '¿No estás registrado? Regístrate'}</a>
         </p>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            {lang.value === 'ca' ? 'Acceptar' : 'Aceptar'}           
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded relative right-0">
+            {lang?.value === 'ca' ? 'Acceptar' : 'Aceptar'}           
         </button>
 
     </form>

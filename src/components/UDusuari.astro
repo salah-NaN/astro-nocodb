@@ -1,0 +1,8 @@
+---
+const { Id, color, text } = Astro.props;
+---
+
+  <a href=`/settings/${Id}`>
+    <button class=`px-6 py-3 ${color}`>{text}</button>
+  </a>
+
