@@ -14,6 +14,7 @@ const receptesController = new ReceptesController();
 
 const recepta = await receptesController.getReceptaById(Id);
 const {nombre, imagen, descripcion} = recepta;
+console.log(recepta)
 
 
 
@@ -23,10 +24,7 @@ if (Astro.request.method === "POST") {
     const nom = data.get("nom") === "" ? nombre : data.get("nom");
     const img = data.get("foto") === "" ? imagen : data.get("foto");
     const descripcio = data.get("descripcio") === "" ? descripcion : data.get("descripcio");
-    console.log(img)
-    // const nom = data.get("nom");
-    // const img = data.get("foto");
-    // const descripcio = data.get("descripcio");
+    
 
     await receptesController.updateRecepta(id, nom, img, descripcio);
 

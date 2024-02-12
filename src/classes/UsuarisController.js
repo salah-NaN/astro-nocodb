@@ -18,8 +18,8 @@ class UsuarisController {
     const response_data = await response.json();
 
     const users = response_data.list;
-    console.log(users);
-    console.log(users);
+    // console.log(users);
+    // console.log(users);
     const validUser = users.filter(
       (e) => e.nom === nom && e.password === password
     );
@@ -78,18 +78,18 @@ class UsuarisController {
     }
   }
 
-  async updateUsuari(id, nom, foto, descripcio) {
-    const response = await fetch(`${this.apiUrl}/${id}`, {
-      method: "PUT",
+  async updateUsuari(id, email, password) {
+    const response = await fetch(`${this.apiUrl}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "xc-token": this.token,
       },
       body: JSON.stringify({
-        nom,
-        foto,
-        descripcio,
-      }),
+        id,
+        email,
+        password
+      })
     });
 
     const data = await response.json();

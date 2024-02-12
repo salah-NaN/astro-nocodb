@@ -1,16 +1,40 @@
 ---
-const { Id, nom, email, password } = Astro.props.usr;
-const usuari = Astro.props.usr;
+
+
+const { Id, nom, email, password } = Astro.props.u;
+const usuari = Astro.props.u;
 const lang = Astro.cookies.get("idiom");
+
 ---
 
-<nav>
+<nav class="  my-6 border-2 divide-x-2 divide-black rounded-full border-black/80 mx-auto flex items-center w-fit bg-black/50 text-white shadow-lg">
+  <a href="/receptes/nova" class=" py-2 px-2" >{lang.value === "ca" ? "Nova recepta" : "Nueva receta"}</a>
+  <a class="  py-2 px-2" href={`users/update/${Id}`}><img src="edit.svg" alt=""></a>
+  <a class="  py-2 px-2" href={"/users/delete/"+Id}><img src="trash.svg" alt=""></a>
+  <!-- <select id="userUD" class=" rounded-full border bg-amber-200 py-4 px-2" >
+      <option >Editar usuari
+        <a href=""></a>
+      </option>
+      <option >Esborrar usuari</option>
+  </select> -->
+  <div class=" py-2 px-2">
+    {
+      usuari ? (
+        <a href="/logout" class=" no-underline">
+          <img src="/logout.svg"/>
+        </a>
+      ) : (
+        <a href="/login" class=" no-underline">
+          <img src="/login.svg"/>
+        </a>
+      )
+    }
+  </div>
+</nav>
+
+
+<!-- <nav> -->
   <!-- nueva receta -->
-  <a
-    class="text-white bg-[#5b4540] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit mb-9 mx-auto p-3"
-    href="/receptes/nova"
-    >{lang.value === "ca" ? "Nova recepta" : "Nueva receta"}</a
-  >
 
   <!-- hay que definir la imagen ajustes.svg -->
   <!-- <a href="/settings/index">
@@ -27,7 +51,7 @@ const lang = Astro.cookies.get("idiom");
 
   <!-- aqui metemos la lógica de cerrar sesión -->
 
-  <p class="bg-black/55 text-white p-2 rounded-lg text-bold text-xl ml-12">
+  <!-- <p class="bg-black/55 text-white p-2 rounded-lg text-bold text-xl ml-12">
     {
       usuari ? (
         <a href="/logout" class="no-underline">
@@ -41,4 +65,4 @@ const lang = Astro.cookies.get("idiom");
       )
     }
   </p>
-</nav>
+</nav> -->

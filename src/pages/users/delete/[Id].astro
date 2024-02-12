@@ -1,0 +1,26 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import UsuarisController from "../../../classes/UsuarisController";
+const { Id } = Astro.params;
+
+console.log("holaa");
+if (Astro.request.method === "POST") {
+  const usuarisController = new UsuarisController();
+  const data = await Astro.request.formData();
+  const id = data.get("dlt");
+
+  usuarisController.deleteUsuari(id);
+
+  return Astro.redirect("/login");
+}
+---
+
+<Layout>
+  <div>seguro q quieres eliminar el usuario</div>
+
+  <form method="post">
+    <input name="dlt" type="hidden" value={Id} />
+    <button type="submit">si</button>
+    <button><a href="/">no</a></button>
+  </form>
+</Layout>

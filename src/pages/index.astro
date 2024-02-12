@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ReceptesController from "../classes/ReceptesController";
-import Recepta from "../components/Recepta.astro";
 import UsuarisController from "../classes/UsuarisController";
+import Recepta from "../components/Recepta.astro";
 import Navbar from "../components/Navbar.astro";
 
 // Exemple d'ús:
@@ -11,10 +11,13 @@ const receptesController = new ReceptesController();
 const usuarisController = new UsuarisController();
 
 const receptes = await receptesController.getAllReceptes();
+
 //vamos a pescar el objeto user en el dashboard del usuario para poder hacer el CRUD
 //pero hay un matiz importante y es que voy a rescatar el objeto usuario a partir del
 //par nombre de usuario y contraseña suponiendo que este par es irrepetible, además
 //de el nombre de usuario a solas
+
+let gotUser = {}
 
 // simple validació d'usuari loguejat
 let usuari;
@@ -34,9 +37,13 @@ if (Astro.cookies.has("usuari")) {
 
   //no podemos pescar el usuario por id porque no tenemos fuente de id, solo tenemos
   //el input del login 'nom' 'password'
-  // const allUsuaris = await usuarisController.getAllUsuaris();
-  // objUsuari = allUsuaris.filter((user) => user.nom === usuari)[0];
+  const { list: allUsuaris } = await usuarisController.getAllUsuaris();
 
+  gotUser = allUsuaris.find((user)  => user.nom === usuari);
+  console.log(gotUser)
+
+
+  // objUsuari = allUsuaris.filter((user) => user.nom === usuari)[0];
 } else {
   return Astro.redirect("/login");
 }
@@ -77,9 +84,9 @@ const lang = Astro.cookies.get("idiom");
 ---
 
 <Layout title={lang.value === "ca" ? "Cuina amb mi!" : "Cocina conmigo!"}>
-  <!-- <Navbar usr={objUsuari} /> -->
+  <Navbar u={gotUser} />
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-2 gap-x-0 gap-y-8 md:px-6">
     {
       receptes.list
         .filter((recepta) => recepta.usuari === usuari)
