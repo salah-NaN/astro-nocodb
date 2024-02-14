@@ -23,12 +23,16 @@ const lang = Astro.cookies.get('idiom')
 
 <Layout title={lang?.value === 'ca' ? 'Iniciar sessió' : 'Iniciar sesión'}>
 
-    <form method="post" class="w-1/2 m-auto">
+    <form method="post" class="w-7/12 mx-auto my-16
+     relative
+    md:mr-[234px]
+    lg:mr-[330px]
+    xl:mr-[420px]">
         <div class="md:flex md:items-start mb-6">
             <div class="md:w-1/3">
                 <label
-                    class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4"
-                    for="inline-full-name"
+                    class="block text-gray-500 md:text-right mb-1 md:mb-0 pr-4 md:mt-2"
+                    for="inline-full-name " 
                 >
                 {lang?.value === 'ca' ? 'Nom' : 'Nombre'}
                 </label>
@@ -62,12 +66,15 @@ const lang = Astro.cookies.get('idiom')
                 />
             </div>
         </div>
-        <p class="text-center text-sm">
-            <a href="/signup">{lang?.value === 'ca' ? "No estàs registrat? Registra't" : '¿No estás registrado? Regístrate'}</a>
-        </p>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded relative right-0">
-            {lang?.value === 'ca' ? 'Acceptar' : 'Aceptar'}           
-        </button>
+            <p class="text-sm mb-7 md:2/3 text-end">
+                <a class="text-gray-700 font-bold" href="/signup">{lang?.value === 'ca' ? "No estàs registrat? Registra't" : '¿No estás registrado? Regístrate'}</a>
+            </p>
+
+        <div class="flex justify-end">
+            <button class="bg-[#e4ccbf] hover:bg-[#d5beb2] hover:transition-all duration-200 text-gray-800 font-bold py-2 px-4 rounded ">
+                {lang?.value === 'ca' ? 'Acceptar' : 'Aceptar'}           
+            </button>
+        </div>
 
     </form>
 </Layout>
