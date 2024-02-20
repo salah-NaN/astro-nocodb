@@ -41,7 +41,7 @@ class ReceptesController {
             },
             body: JSON.stringify({
                 nom,
-                foto,
+                img:foto,
                 descripcio,
                 usuari
             })
@@ -73,6 +73,8 @@ class ReceptesController {
     }
 
     async deleteRecepta(id) {
+        //debo eliminar una receta por el identificador de esta pero que 
+        //esté asociada a un usuario en concreto
         const response = await fetch(`${this.apiUrl}`, {
             method: 'DELETE',
             headers: {

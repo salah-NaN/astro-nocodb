@@ -54,10 +54,10 @@ class UsuarisController {
 
   async createUsuari(nom, email, password) {
     const usuaris = await this.getAllUsuaris();
-    const listaUsuais = usuaris.list;
+    const listaUsuaris = usuaris.list;
 
-    const exists = listaUsuais.filter(usuari => usuari.email === email);
-    if (exists.length === 0) {
+    const exists = listaUsuaris.filter(usuari => usuari.nom === nom);
+    if (exists.length === 0 && (nom !== '') && (email !== '') && (password !== '')) {
       const response = await fetch(`${this.apiUrl}`, {
         method: "POST",
         headers: {

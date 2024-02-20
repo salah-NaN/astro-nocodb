@@ -1,28 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Back from "../components/Back.astro";
-const lang = Astro.cookies.get('idiom');
-
+const lang = Astro.cookies.get("idiom");
 ---
 
 <Layout title="Oops...">
-    <a class="text-white bg-[#d14d4d] duration-300 hover:transition-all hover:bg-[#46332f] rounded-full block w-fit  mb-9  p-3"href="/signup">
-        <img src="/back-arrow.svg" width="20">
-    </a>
-    <div class="w-1/2 m-auto">
-        <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
-            <p class="font-bold">{lang.value === 'ca' ? 'Error de registre' : 'Error de registro'} </p>
-            <p class="text-sm"> {lang.value === 'ca' ? 'Aquest usuari ja existeix...' : 'Este usuario ya existe'}</p>
-          </div>
-
-          <br>
-          <br>
-        <a href="/" >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                {lang.value === 'ca' ? 'Torna-ho a provar' : 'Vuelve a intentarlo'}
-            </button>
-        </a>
-
+  <div class=" mt-20 sm:w-1/2  w-3/4 w-1/2 m-auto">
+    <div
+      class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3 rounded-md"
+      role="alert"
+    >
+      <p class="font-bold">
+        {lang.value === "ca" ? "Error de registre" : "Error de registro"}
+      </p>
+      <p class="text-sm">
+        {
+          lang.value === "ca"
+            ? "Hi ha hagut un problema..."
+            : "Ha habido un problema..."
+        }
+      </p>
     </div>
 
+    
+    <a class="mt-4 block" href="/login">
+      <div class="w-full flex justify-end">
+        <button
+          class="text-gray-700 bg-[#f5d4bc] duration-300 hover:transition-all hover:bg-[#46332f] rounded-xl block mb-9 p-3"
+          >{
+            lang.value === "ca" ? "Torna-ho a provar" : "Vuelve a intentarlo"
+          }</button
+        >
+      </div>
+    </a>
+  </div>
 </Layout>

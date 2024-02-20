@@ -7,7 +7,7 @@ const lang = Astro.cookies.get("idiom");
 
 ---
 
-<nav class="  my-6 border-2 divide-x-2 divide-black rounded-full border-black/80 mx-auto flex items-center w-fit bg-black/50 text-white shadow-lg">
+<nav class="  mb-9 my-6 border-2 divide-x-2 divide-black rounded-full border-black/80 mx-auto flex items-center w-fit bg-black/50 text-white shadow-lg">
   <a href="/receptes/nova" class=" py-2 px-2" >{lang.value === "ca" ? "Nova recepta" : "Nueva receta"}</a>
   <a class="  py-2 px-2" href={`users/update/${Id}`}><img src="edit.svg" alt=""></a>
   <a class="  py-2 px-2" href={"/users/delete/"+Id}><img src="trash.svg" alt=""></a>

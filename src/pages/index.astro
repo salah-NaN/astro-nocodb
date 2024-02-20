@@ -40,7 +40,7 @@ if (Astro.cookies.has("usuari")) {
   const { list: allUsuaris } = await usuarisController.getAllUsuaris();
 
   gotUser = allUsuaris.find((user)  => user.nom === usuari);
-  console.log(gotUser)
+
 
 
   // objUsuari = allUsuaris.filter((user) => user.nom === usuari)[0];
@@ -86,7 +86,9 @@ const lang = Astro.cookies.get("idiom");
 <Layout title={lang.value === "ca" ? "Cuina amb mi!" : "Cocina conmigo!"}>
   <Navbar u={gotUser} />
 
-  <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-2 gap-x-0 gap-y-8 md:px-6">
+  <div class="grid grid-cols-1 
+  md:grid-cols-2 
+  lg:grid-cols-3 lg:gap-x-1  gap-x-0 gap-y-8 md:px-6">
     {
       receptes.list
         .filter((recepta) => recepta.usuari === usuari)
