@@ -18,7 +18,7 @@ shadow-2xl bg-[#fbded0]/85 hover:bg-[#d2baad]  duration-400 ease-linear hover:tr
             {descripcio?.replace(/\n/g, '*n*').split('*n*').map(e => <p class="text-[#5b4540] text-lg font-thin">{e}</p>)}
         </div>
         <!-- div de los botones  -->
-        <div class="  mt-8 mb-3 flex flex-row justify-between">
+        <div class="  mt-8 mb-3 pt-3 flex flex-row justify-between">
             <a class=" rounded-md duration-200 hover:transition-all hover:bg-red-800 absolute bottom-0 bg-red-500/70 text-white mb-2 block px-3 py-2 border-2 border-solid border-red-700" href={"/receptes/eliminar/"+Id}>Eliminar</a>
             <a class=" rounded-md duration-200 hover:transition-all hover:bg-green-900 absolute bottom-0 right-7 ml-1/2 bg-green-700/70 text-white mb-2 block px-3 py-2 border-2 border-solid border-green-900" href={"/receptes/actualizar/"+Id}>Editar</a>
         </div>

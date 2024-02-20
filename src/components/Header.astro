@@ -17,12 +17,11 @@ if (!Astro.cookies.has("idiom")) {
 
 <div
   style="background-image: url(/header-img.jpeg); background-size: 130px 130px;"
-  class="w-11/12 h-28 mx-auto mt-12 mb-10 relative rounded-full flex justify-center items-center text-slate-700  bg-[length:100px_100px]
-  md:w-8/12 
-  lg:w-7/12 lg:h-[140px] "
+  class=" w-11/12 h-28 mx-auto mt-16 mb-10 relative rounded-full flex justify-center items-center text-slate-700 bg-[length:100px_100px]
+  md:w-8/12 md:mt-12
+  lg:w-7/12 lg:h-[140px] lg:mt-12"
 >
-
-<!-- class="pl-3 text-white bg-[black]/55 font-normal text-4xl rounded-xl
+  <!-- class="pl-3 text-white bg-[black]/55 font-normal text-4xl rounded-xl
         w-fit p-4 my-10 mx-auto md:p-6 md:text-4xl lg:p-8 lg:text-5xl" -->
   <h1
     class="p-4 text-3xl font-sans text-white font-bold bg-black/50 rounded-xl
@@ -31,7 +30,6 @@ if (!Astro.cookies.has("idiom")) {
   >
     {title}
   </h1>
-
 </div>
 <div class="absolute right-0 flex justify-center items-center top-1">
   <a class="block m-2 p-1" href="/idiomas/ca">
@@ -51,10 +49,6 @@ if (!Astro.cookies.has("idiom")) {
   <!-- en realidad esta <p> </p> de abajo debería ser un div y lo vamos a trasladar a un componente navbar -->
 
   <!--  IMPORTANTE hay que definir la salida.svg -->
-  
-  
-
-
 </div>
 <!-- icono login -->
 
@@ -63,11 +57,10 @@ if (!Astro.cookies.has("idiom")) {
             {lang.value === "ca" ? "(Tancar sessió)" : "(Cerrar sesión)"} -->
 
 <!-- en caso de que el usuario no esté logeado -->
-            <!-- {lang.value === "ca" ? "(Iniciar sessió)" : "(Iniciar sesión)"} -->
+<!-- {lang.value === "ca" ? "(Iniciar sessió)" : "(Iniciar sesión)"} -->
 
-
-          <!-- recursos -->
-            <!-- {
+<!-- recursos -->
+<!-- {
               usuari ? (
                 <a href="/logout" class="no-underline">
       
@@ -80,7 +73,7 @@ if (!Astro.cookies.has("idiom")) {
               )
             } -->
 
-            <!-- <div class="bg-black/55 text-white p-2 rounded-lg text-bold text-xl ml-12">
+<!-- <div class="bg-black/55 text-white p-2 rounded-lg text-bold text-xl ml-12">
     
               <img src="entrada.svg" class="w-8" >
             </div> -->
